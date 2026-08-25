@@ -1,0 +1,9 @@
+{
+  // Le dice a Cloudflare qué carpeta publicar (la que genera "npm run build")
+  // y cómo se llama el proyecto. No hace falta tocar esto para trabajar día a día.
+  "name": "nortecreativo",
+  "compatibility_date": "2026-08-25",
+  "assets": {
+    "directory": "./dist"
+  }
+}
