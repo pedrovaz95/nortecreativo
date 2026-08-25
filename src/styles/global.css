@@ -15,6 +15,11 @@
   --font-display: 'Archivo', 'Arial Narrow', sans-serif;
   --font-body: 'Manrope', 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+
+  /* Curvas con más carácter que las de CSS por defecto — para que las
+     transiciones se sientan intencionales, no genéricas. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +41,59 @@
 
 html {
   color-scheme: light dark;
+  scroll-behavior: smooth;
+}
+
+/* Animación de entrada al hacer scroll (ver el script en Base.astro).
+   Visible por defecto: solo se oculta para animar si el JS de la página
+   confirmó que cargó (clase "js" en <html>) y el visitante no pidió
+   "reducir movimiento". Así nunca hay contenido que se quede invisible
+   por un script que falló o no corrió. */
+html.js:not(.reduced-motion) .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+html.js:not(.reduced-motion) .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+html.js:not(.reduced-motion) .reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(16px);
+}
+html.js:not(.reduced-motion) .reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 240ms; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 300ms; }
+
+/* Escalón de retraso para encadenar elementos .reveal sueltos (no dentro
+   de un .reveal-stagger), como los bloques del hero. */
+.reveal.is-visible.d1 { transition-delay: 0ms; }
+.reveal.is-visible.d2 { transition-delay: 70ms; }
+.reveal.is-visible.d3 { transition-delay: 140ms; }
+.reveal.is-visible.d4 { transition-delay: 210ms; }
+.reveal.is-visible.d5 { transition-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

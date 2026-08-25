@@ -79,34 +79,45 @@ const portafolio = [
   title="Soluciones de marca, contenido y tecnología para pymes"
   description="Nortecreativo crea soluciones para pequeños negocios combinando creatividad, tecnología e IA — de una marca a una herramienta digital hecha para resolver un problema real."
 >
-  <section class="hero wrap">
-    <span class="eyebrow mono">Nortecreativo</span>
-    <h1>Resolvemos problemas de negocio con diseño y tecnología.</h1>
-    <p class="lead">
-      Marca, contenido, herramientas digitales y automatización con IA. No
-      entregamos solo un archivo — resolvemos el problema detrás.
-    </p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a>
-      <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+  <section class="hero-section">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="hero-mark" viewBox="0 0 100 100">
+        <g transform="rotate(18 50 50)">
+          <polygon points="50,4 62,52 38,52" fill="var(--accent)"></polygon>
+          <polygon points="50,96 62,52 38,52" fill="var(--ink)"></polygon>
+        </g>
+      </svg>
     </div>
-    <div class="contraste">
-      <p><span class="mono tag">antes</span> "Te hago una página web."</p>
-      <p>
-        <span class="mono tag accent">ahora</span> Una solución para vender, comunicar
-        u operar mejor tu negocio.
+    <div class="hero wrap">
+      <span class="eyebrow mono reveal d1">Nortecreativo</span>
+      <h1 class="reveal d2">Resolvemos problemas de negocio con diseño y tecnología.</h1>
+      <p class="lead reveal d3">
+        Marca, contenido, herramientas digitales y automatización con IA. No
+        entregamos solo un archivo — resolvemos el problema detrás.
       </p>
+      <div class="cta-row reveal d4">
+        <a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a>
+        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+      </div>
+      <div class="contraste reveal d5">
+        <p class="antes"><span class="mono tag">antes</span> "Te hago una página web."</p>
+        <p class="ahora">
+          <span class="mono tag accent">ahora</span> Una solución para vender, comunicar
+          u operar mejor tu negocio.
+        </p>
+      </div>
     </div>
   </section>
 
   <section id="servicios" class="section">
     <div class="wrap">
-      <span class="eyebrow mono">Servicios</span>
-      <h2>Cuatro líneas. Casi siempre se combinan.</h2>
-      <div class="grid grid-2">
+      <span class="eyebrow mono reveal">Servicios</span>
+      <h2 class="reveal">Cuatro líneas. Casi siempre se combinan.</h2>
+      <div class="grid grid-2 reveal-stagger">
         {
-          lineas.map((l) => (
+          lineas.map((l, i) => (
             <div class="card">
+              <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
               <h3>{l.titulo}</h3>
               <p>{l.desc}</p>
             </div>
@@ -114,12 +125,13 @@ const portafolio = [
         }
       </div>
 
-      <span class="eyebrow mono niveles-eyebrow">Niveles</span>
-      <h2>Del tamaño de tu problema.</h2>
-      <div class="grid grid-3">
+      <span class="eyebrow mono niveles-eyebrow reveal">Niveles</span>
+      <h2 class="reveal">Del tamaño de tu problema.</h2>
+      <div class="grid grid-3 reveal-stagger">
         {
-          niveles.map((n) => (
+          niveles.map((n, i) => (
             <div class="card card-nivel">
+              <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
               <h3>{n.nombre}</h3>
               <p class="precio mono">{n.precio}</p>
               <p class="nivel-desc">{n.desc}</p>
@@ -138,12 +150,13 @@ const portafolio = [
 
   <section id="portafolio" class="section alt">
     <div class="wrap">
-      <span class="eyebrow mono">Portafolio</span>
-      <h2>Seis proyectos. Un problema distinto cada uno.</h2>
-      <div class="grid grid-3">
+      <span class="eyebrow mono reveal">Portafolio</span>
+      <h2 class="reveal">Seis proyectos. Un problema distinto cada uno.</h2>
+      <div class="grid grid-3 reveal-stagger">
         {
-          portafolio.map((p) => (
+          portafolio.map((p, i) => (
             <div class="card">
+              <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
               <span class="mono tag accent">{p.tag}</span>
               <h3>{p.titulo}</h3>
               <p>{p.desc}</p>
@@ -156,22 +169,50 @@ const portafolio = [
 
   <section id="contacto" class="section">
     <div class="wrap contacto">
-      <span class="eyebrow mono">Contacto</span>
-      <h2>Hablemos de tu proyecto.</h2>
-      <p class="lead">
+      <span class="eyebrow mono reveal">Contacto</span>
+      <h2 class="reveal">Hablemos de tu proyecto.</h2>
+      <p class="lead reveal">
         Cuéntame qué necesitas resolver. Te respondo con una propuesta clara
         y sin rodeos.
       </p>
-      <!-- TODO: cambiar por el correo o WhatsApp real de Pedro -->
-      <a class="btn btn-primary" href="mailto:hola@nortecreativo.com"
-        >Escribir a hola@nortecreativo.com</a
-      >
+      <!-- TODO: cambiar 5210000000000 por el número real de WhatsApp de Pedro (52 + código de área + número, sin espacios) -->
+      <div class="cta-row reveal">
+        <a
+          class="btn btn-primary"
+          href="https://wa.me/5210000000000"
+          target="_blank"
+          rel="noopener"
+          >Escribir por WhatsApp</a
+        >
+        <a class="btn btn-ghost" href="mailto:hola@nortecreativo.com"
+          >hola@nortecreativo.com</a
+        >
+      </div>
     </div>
   </section>
 
   <style>
+    .hero-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+    .hero-mark {
+      width: min(58vw, 620px);
+      height: auto;
+      transform: translate(20%, -4%);
+      opacity: 0.06;
+    }
     .hero {
-      padding: 80px 0 60px;
+      position: relative;
+      padding: 88px 0 64px;
       max-width: 680px;
     }
     .eyebrow {
@@ -183,7 +224,8 @@ const portafolio = [
       margin-bottom: 18px;
     }
     h1 {
-      font-size: clamp(30px, 5vw, 44px);
+      font-size: clamp(32px, 5.2vw, 48px);
+      letter-spacing: -0.01em;
       margin-bottom: 18px;
     }
     .lead {
@@ -208,10 +250,25 @@ const portafolio = [
       text-decoration: none;
       border-radius: 4px;
       border: 1px solid transparent;
+      transition: transform 160ms var(--ease-out), background 200ms var(--ease-out),
+        border-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    }
+    .btn:active {
+      transform: scale(0.97);
     }
     .btn-primary {
       background: var(--accent);
       color: var(--accent-ink);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .btn-primary:hover {
+        box-shadow: 0 6px 20px -8px var(--accent);
+        transform: translateY(-1px);
+      }
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
     }
     .btn-ghost {
       color: var(--ink);
@@ -222,13 +279,19 @@ const portafolio = [
       padding-top: 24px;
     }
     .contraste p {
-      margin: 0 0 8px;
-      color: var(--muted);
-      font-size: 15px;
+      margin: 0 0 10px;
+      font-size: 16px;
     }
-    .contraste p:last-child {
+    .contraste .antes {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: var(--muted);
+      text-decoration-thickness: 1.5px;
+    }
+    .contraste .ahora {
       color: var(--ink);
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 19px;
       margin-bottom: 0;
     }
     .tag {
@@ -272,12 +335,30 @@ const portafolio = [
       grid-template-columns: repeat(3, 1fr);
     }
     .card {
+      position: relative;
       border: 1px solid var(--line);
       background: var(--surface);
-      padding: 26px;
+      padding: 28px 26px 26px;
+      transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out),
+        box-shadow 220ms var(--ease-out);
     }
     .section.alt .card {
       background: var(--bg);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        box-shadow: 0 16px 32px -20px rgba(0, 0, 0, 0.35);
+      }
+    }
+    .card-index {
+      display: block;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+      opacity: 0.85;
     }
     .card h3 {
       font-size: 18px;
@@ -298,9 +379,10 @@ const portafolio = [
       margin-bottom: 2px;
     }
     .precio {
-      font-size: 15px;
+      font-size: 21px;
       color: var(--ink);
-      font-weight: 600;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
     .nivel-desc {
       color: var(--ink);
@@ -326,6 +408,10 @@ const portafolio = [
       .grid-2,
       .grid-3 {
         grid-template-columns: 1fr;
+      }
+      .hero-mark {
+        width: 80vw;
+        opacity: 0.05;
       }
     }
   </style>
