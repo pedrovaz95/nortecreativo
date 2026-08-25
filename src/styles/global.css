@@ -12,6 +12,19 @@
   --muted: #63666d;
   --line: #dbd9d2;
 
+  /* Franja "oscura" fija — no cambia con el modo claro/oscuro del sistema.
+     Es un recurso de diseño (secciones de contraste), no un tema. */
+  --deep-bg: #131417;
+  --deep-card: #1c1e24;
+  --deep-text: #f4f3ef;
+  --deep-muted: #a6a9b2;
+  --deep-line: #2b2d33;
+  --deep-accent: #ff9a2e;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 999px;
+
   --font-display: 'Archivo', 'Arial Narrow', sans-serif;
   --font-body: 'Manrope', 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
@@ -51,21 +64,21 @@ html {
    por un script que falló o no corrió. */
 html.js:not(.reduced-motion) .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(22px);
 }
 html.js:not(.reduced-motion) .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
 html.js:not(.reduced-motion) .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(22px);
 }
 html.js:not(.reduced-motion) .reveal-stagger.is-visible > * {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
 .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; }
 .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 60ms; }

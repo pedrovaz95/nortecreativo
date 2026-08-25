@@ -86,43 +86,38 @@ const { title, description } = Astro.props;
 
     <style>
       .site-header {
-        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: color-mix(in srgb, var(--bg) 78%, transparent);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
       }
       .header-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 20px 24px;
+        padding: 18px 24px;
       }
       .site-nav {
         display: flex;
-        gap: 28px;
+        gap: 6px;
       }
       .site-nav a {
         position: relative;
+        display: inline-block;
         color: var(--ink);
         text-decoration: none;
         font-weight: 600;
         font-size: 15px;
-        padding-bottom: 3px;
-      }
-      .site-nav a::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 2px;
-        background: var(--accent);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 200ms var(--ease-out);
+        padding: 8px 14px;
+        border-radius: var(--radius-pill);
+        transition: background 200ms var(--ease-out), color 200ms var(--ease-out);
       }
       .site-nav a:hover {
         color: var(--accent);
-      }
-      .site-nav a:hover::after {
-        transform: scaleX(1);
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
       }
       .site-footer {
         margin-top: 80px;
