@@ -127,3 +127,9 @@ a {
   margin: 0 auto;
   padding: 0 24px;
 }
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 28px;
+  }
+}
