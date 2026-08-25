@@ -42,5 +42,7 @@ public/         archivos que se sirven tal cual (favicon, imágenes)
 
 ## Estado
 
-Fase 3 del plan de trabajo (entorno): completa. El sitio no tiene todavía
-contenido final — eso es la fase 2, sigue después de este setup.
+Fase 3 del plan de trabajo (entorno): completa, con dominio propio conectado.
+Fase 2 (contenido) en curso: ya está el texto real de inicio, servicios,
+niveles y portafolio. Falta el correo o WhatsApp real de contacto, y el
+formulario de contacto funcional (eso es la fase 5).

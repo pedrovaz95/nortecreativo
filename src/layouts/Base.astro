@@ -87,6 +87,21 @@ const { title, description } = Astro.props;
         color: var(--muted);
         font-size: 13px;
       }
+
+      @media (max-width: 640px) {
+        .header-inner {
+          flex-wrap: wrap;
+          row-gap: 12px;
+          padding: 16px 20px;
+        }
+        .site-nav {
+          width: 100%;
+          gap: 18px;
+        }
+        .site-nav a {
+          font-size: 14px;
+        }
+      }
     </style>
   </body>
 </html>
