@@ -1,20 +1,15 @@
 ---
 // La aguja de brújula, más el wordmark opcional.
-// Colores fijos a propósito (no usan las variables del tema): el logo
-// no se invierte con el modo oscuro del visitante, siempre se ve igual
-// a sí mismo. Por eso recibe la variante "onDark" en vez de heredar tokens.
+// Usa las variables de color del tema (--ink, --bg, --accent, --muted),
+// las mismas que ya cambian solas entre modo claro y oscuro en global.css.
+// Así el logo se ajusta automáticamente sin que nadie tenga que avisarle
+// en qué fondo está.
 interface Props {
   withWordmark?: boolean;
-  onDark?: boolean;
   size?: number;
 }
 
-const { withWordmark = true, onDark = false, size = 40 } = Astro.props;
-
-const inkColor = onDark ? '#f2f1ed' : '#15161b';
-const bgColor = onDark ? '#15161b' : '#ffffff';
-const accentColor = onDark ? '#ff9a2e' : '#ff8a00';
-const mutedColor = onDark ? '#9a9da6' : '#63666d';
+const { withWordmark = true, size = 40 } = Astro.props;
 ---
 
 <span class="logo">
@@ -26,16 +21,16 @@ const mutedColor = onDark ? '#9a9da6' : '#63666d';
     aria-label="Nortecreativo"
   >
     <g transform="rotate(18 50 50)">
-      <polygon points="50,4 62,52 38,52" fill={accentColor}></polygon>
-      <polygon points="50,96 62,52 38,52" fill={inkColor}></polygon>
-      <circle cx="50" cy="52" r="5.5" fill={bgColor} stroke={inkColor} stroke-width="2.5"
+      <polygon points="50,4 62,52 38,52" fill="var(--accent)"></polygon>
+      <polygon points="50,96 62,52 38,52" fill="var(--ink)"></polygon>
+      <circle cx="50" cy="52" r="5.5" fill="var(--bg)" stroke="var(--ink)" stroke-width="2.5"
       ></circle>
     </g>
   </svg>
   {
     withWordmark && (
-      <span class="logo-word" style={`color:${inkColor}`}>
-        norte<span style={`color:${mutedColor}; font-weight:700`}>creativo</span>
+      <span class="logo-word">
+        norte<span class="logo-word-muted">creativo</span>
       </span>
     )
   }
@@ -55,5 +50,10 @@ const mutedColor = onDark ? '#9a9da6' : '#63666d';
     font-weight: 800;
     font-size: 20px;
     letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .logo-word-muted {
+    color: var(--muted);
+    font-weight: 700;
   }
 </style>
