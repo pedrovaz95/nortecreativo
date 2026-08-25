@@ -1,0 +1,92 @@
+---
+import Logo from '../components/Logo.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="description" content={description} />
+    <title>{title} — Nortecreativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Manrope:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" aria-label="Ir al inicio de Nortecreativo">
+          <Logo />
+        </a>
+        <nav class="site-nav">
+          <a href="/#servicios">Servicios</a>
+          <a href="/#portafolio">Portafolio</a>
+          <a href="/#contacto">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <Logo withWordmark={false} size={22} />
+        <span class="mono footer-note">nortecreativo.com</span>
+      </div>
+    </footer>
+
+    <style>
+      .site-header {
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 24px;
+      }
+      .site-nav {
+        display: flex;
+        gap: 28px;
+      }
+      .site-nav a {
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .site-nav a:hover {
+        color: var(--accent);
+      }
+      .site-footer {
+        margin-top: 80px;
+        border-top: 1px solid var(--line);
+        padding: 28px 24px;
+      }
+      .site-footer .wrap {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .footer-note {
+        color: var(--muted);
+        font-size: 13px;
+      }
+    </style>
+  </body>
+</html>

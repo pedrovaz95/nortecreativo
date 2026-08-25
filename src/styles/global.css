@@ -1,0 +1,71 @@
+/* Tokens de marca — Nortecreativo
+   Vienen directo de la identidad visual aprobada. No se tocan sueltos:
+   si cambia un color o una tipografía, cambia aquí y se propaga solo. */
+
+:root {
+  --ink: #15161b;
+  --bg: #f1f1ee;
+  --surface: #ffffff;
+  --surface-2: #e7e6e1;
+  --accent: #ff8a00;
+  --accent-ink: #15161b;
+  --muted: #63666d;
+  --line: #dbd9d2;
+
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-body: 'Manrope', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2f1ed;
+    --bg: #121316;
+    --surface: #1b1d22;
+    --surface-2: #24262c;
+    --accent: #ff9a2e;
+    --accent-ink: #15161b;
+    --muted: #9a9da6;
+    --line: #33363c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.1;
+  text-wrap: balance;
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
