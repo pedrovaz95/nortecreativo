@@ -4,15 +4,22 @@
 // las mismas que ya cambian solas entre modo claro y oscuro en global.css.
 // Así el logo se ajusta automáticamente sin que nadie tenga que avisarle
 // en qué fondo está.
+//
+// Con `interactive`, la aguja deja de ser un ícono estático: apenas carga
+// la página gira y se asienta en su inclinación de marca (18°), y después
+// sigue el cursor por toda la página como una brújula real cerca de un
+// imán. Es el único elemento "vivo" del sitio — a propósito no se repite
+// en más lugares, para que siga siendo un gesto y no un efecto de fondo.
 interface Props {
   withWordmark?: boolean;
   size?: number;
+  interactive?: boolean;
 }
 
-const { withWordmark = true, size = 40 } = Astro.props;
+const { withWordmark = true, size = 40, interactive = false } = Astro.props;
 ---
 
-<span class="logo">
+<span class="logo" data-compass={interactive ? 'true' : undefined}>
   <svg
     class="logo-mark"
     style={`width:${size}px;height:${size}px`}
@@ -20,7 +27,7 @@ const { withWordmark = true, size = 40 } = Astro.props;
     role="img"
     aria-label="Nortecreativo"
   >
-    <g transform="rotate(18 50 50)">
+    <g class="needle-group">
       <polygon points="50,4 62,52 38,52" fill="var(--accent)"></polygon>
       <polygon points="50,96 62,52 38,52" fill="var(--ink)"></polygon>
       <circle cx="50" cy="52" r="5.5" fill="var(--bg)" stroke="var(--ink)" stroke-width="2.5"
@@ -44,6 +51,34 @@ const { withWordmark = true, size = 40 } = Astro.props;
   }
   .logo-mark {
     flex: none;
+    overflow: visible;
+  }
+  .needle-group {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    transform: rotate(18deg);
+  }
+  .logo[data-compass='true'] .needle-group {
+    transition: transform 340ms var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .logo[data-compass='true'] .needle-group.settle {
+      animation: needle-settle 900ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+  }
+  @keyframes needle-settle {
+    0% {
+      transform: rotate(150deg);
+    }
+    45% {
+      transform: rotate(-25deg);
+    }
+    72% {
+      transform: rotate(28deg);
+    }
+    100% {
+      transform: rotate(18deg);
+    }
   }
   .logo-word {
     font-family: var(--font-display);
@@ -57,3 +92,75 @@ const { withWordmark = true, size = 40 } = Astro.props;
     font-weight: 700;
   }
 </style>
+
+<script>
+  // Un solo listener para toda la página, sin importar cuántos logos
+  // "interactivos" haya (hoy solo el del encabezado). Se protege con un
+  // flag global para no duplicarse si Astro re-ejecuta el script.
+  (function () {
+    if ((window as any).__needleInit) return;
+    (window as any).__needleInit = true;
+
+    var wrappers = document.querySelectorAll<HTMLElement>('[data-compass="true"]');
+    if (!wrappers.length) return;
+
+    var reduce =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduce) return; // se queda quieta en su inclinación de marca (18°)
+
+    wrappers.forEach(function (wrap) {
+      var needle = wrap.querySelector<SVGGElement>('.needle-group');
+      if (!needle) return;
+      needle.classList.add('settle');
+      needle.addEventListener('animationend', function handler() {
+        needle.classList.remove('settle');
+        needle.removeEventListener('animationend', handler);
+      });
+    });
+
+    var lastX: number | null = null;
+    var lastY: number | null = null;
+    var ticking = false;
+
+    function update() {
+      wrappers.forEach(function (wrap) {
+        var needle = wrap.querySelector<SVGGElement>('.needle-group');
+        var svg = wrap.querySelector('svg');
+        if (!needle || !svg || lastX === null || lastY === null) return;
+        if (needle.classList.contains('settle')) return; // deja terminar el giro inicial
+        var rect = svg.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        var dx = lastX - cx;
+        var dy = lastY - cy;
+        var angle = Math.atan2(dx, -dy) * (180 / Math.PI);
+        needle.style.transform = 'rotate(' + angle.toFixed(1) + 'deg)';
+      });
+      ticking = false;
+    }
+
+    window.addEventListener(
+      'pointermove',
+      function (e) {
+        lastX = e.clientX;
+        lastY = e.clientY;
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('pointerleave', function () {
+      lastX = null;
+      lastY = null;
+      wrappers.forEach(function (wrap) {
+        var needle = wrap.querySelector<SVGGElement>('.needle-group');
+        if (needle) needle.style.transform = 'rotate(18deg)';
+      });
+    });
+  })();
+</script>

@@ -1,22 +1,25 @@
 ---
 import Base from '../layouts/Base.astro';
-import CompassField from '../components/CompassField.astro';
 
 const lineas = [
   {
     titulo: 'Marca y contenido',
+    rumbo: '000°',
     desc: 'Identidad visual, piezas para redes, campañas, presentaciones, guiones, video y contenido con apoyo de IA.',
   },
   {
     titulo: 'Experiencias digitales',
+    rumbo: '090°',
     desc: 'Landing pages, micrositios, catálogos digitales, formularios, calculadoras, simuladores y herramientas interactivas.',
   },
   {
     titulo: 'IA y automatización',
+    rumbo: '180°',
     desc: 'Asistentes internos, generación de contenido, flujos de trabajo y automatización de tareas repetitivas.',
   },
   {
     titulo: 'Ventas y capacitación',
+    rumbo: '270°',
     desc: 'Material para equipos comerciales, cursos, guías, recursos de venta y sistemas de consulta.',
   },
 ];
@@ -81,7 +84,6 @@ const portafolio = [
   description="Nortecreativo crea soluciones para pequeños negocios combinando creatividad, tecnología e IA — de una marca a una herramienta digital hecha para resolver un problema real."
 >
   <section class="hero-section">
-    <CompassField />
     <div class="hero wrap" data-parallax>
       <div class="hero-title-block">
         <span class="eyebrow mono reveal d1">Nortecreativo</span>
@@ -117,9 +119,9 @@ const portafolio = [
       <h2 class="reveal">Cuatro líneas. Casi siempre se combinan.</h2>
       <div class="service-list reveal-stagger">
         {
-          lineas.map((l, i) => (
+          lineas.map((l) => (
             <div class="service-row">
-              <span class="service-index mono">{String(i + 1).padStart(2, '0')}</span>
+              <span class="service-index mono">{l.rumbo}</span>
               <h3 class="service-title">{l.titulo}</h3>
               <p class="service-desc">{l.desc}</p>
             </div>
@@ -130,7 +132,6 @@ const portafolio = [
   </section>
 
   <section class="section section-deep">
-    <CompassField variant="deep" />
     <div class="wrap">
       <span class="eyebrow mono reveal">Niveles</span>
       <h2 class="reveal">Del tamaño de tu problema.</h2>
@@ -175,7 +176,6 @@ const portafolio = [
   </section>
 
   <section id="contacto" class="section section-cta">
-    <CompassField />
     <div class="wrap contacto">
       <span class="eyebrow mono reveal">Contacto</span>
       <h2 class="reveal">Hablemos de tu proyecto.</h2>
@@ -223,6 +223,14 @@ const portafolio = [
       text-transform: uppercase;
       margin-bottom: 22px;
     }
+    /* container-type hace que las líneas del título midan su tamaño
+       contra el ancho real de esta columna, no contra el ancho de la
+       pantalla completa (con vw, el título se salía de su columna y se
+       encimaba con el texto de al lado en pantallas muy anchas). */
+    .hero-title-block {
+      container-type: inline-size;
+      min-width: 0;
+    }
     .hero-title {
       margin: 0;
       display: flex;
@@ -237,17 +245,17 @@ const portafolio = [
       letter-spacing: -0.03em;
     }
     .hero-title .line-1 {
-      font-size: clamp(44px, 8.6vw, 108px);
+      font-size: clamp(40px, 14.5cqw, 96px);
       font-weight: 900;
     }
     .hero-title .line-2 {
-      font-size: clamp(32px, 6vw, 72px);
-      margin-left: clamp(0px, 6vw, 64px);
+      font-size: clamp(30px, 10cqw, 64px);
+      margin-left: clamp(0px, 8cqw, 56px);
       color: var(--muted);
     }
     .hero-title .line-3 {
-      font-size: clamp(26px, 4.6vw, 52px);
-      margin-left: clamp(0px, 11vw, 116px);
+      font-size: clamp(24px, 7.4cqw, 46px);
+      margin-left: clamp(0px, 15cqw, 96px);
       font-style: italic;
       font-weight: 700;
     }
@@ -354,7 +362,7 @@ const portafolio = [
     .service-row {
       position: relative;
       display: grid;
-      grid-template-columns: 56px minmax(200px, 1fr) minmax(220px, 1.3fr);
+      grid-template-columns: 68px minmax(200px, 1fr) minmax(220px, 1.3fr);
       align-items: baseline;
       gap: 8px 32px;
       padding: 30px 0;
@@ -635,7 +643,7 @@ const portafolio = [
         padding: 26px 24px 24px;
       }
       .service-row {
-        grid-template-columns: 40px 1fr;
+        grid-template-columns: 52px 1fr;
         grid-template-areas: 'idx title' 'desc desc';
         row-gap: 10px;
       }
