@@ -114,23 +114,6 @@ const { title, description } = Astro.props;
         update();
       })();
 
-      // Borde "spotlight": sigue al cursor sobre cada tarjeta con variables
-      // CSS, en vez de un hover genérico de sombra pareja.
-      (function () {
-        document.querySelectorAll('.card').forEach(function (card) {
-          card.addEventListener('pointermove', function (e) {
-            var rect = card.getBoundingClientRect();
-            card.style.setProperty(
-              '--mx',
-              (((e.clientX - rect.left) / rect.width) * 100).toFixed(1) + '%'
-            );
-            card.style.setProperty(
-              '--my',
-              (((e.clientY - rect.top) / rect.height) * 100).toFixed(1) + '%'
-            );
-          });
-        });
-      })();
     </script>
 
     <style>
@@ -138,10 +121,13 @@ const { title, description } = Astro.props;
         position: sticky;
         top: 0;
         z-index: 50;
-        background: color-mix(in srgb, var(--bg) 78%, transparent);
-        backdrop-filter: blur(16px) saturate(160%);
-        -webkit-backdrop-filter: blur(16px) saturate(160%);
-        border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+        /* Sólido, no vidrio esmerilado: con la franja de niveles y el
+           panel del portafolio ahora hay secciones oscuras de sobra
+           pasando debajo del header, y el blur dejaba pasar ese
+           contraste (se leía texto fantasma encima del logo al hacer
+           scroll). Un fondo opaco es más simple y no tiene ese riesgo. */
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
       }
       .header-inner {
         display: flex;

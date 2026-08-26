@@ -77,6 +77,99 @@ const portafolio = [
     desc: 'Una presentación tradicional convertida en experiencia web, con navegación y materiales descargables.',
   },
 ];
+
+// Nota sobre las imágenes de esta sección: no hay fotos reales del
+// trabajo todavía, así que en vez de recurrir a fotos de stock
+// genéricas (justo lo que se quiere evitar), cada proyecto tiene un
+// "gráfico técnico" propio en la línea visual de la marca — el mismo
+// lenguaje del isotipo (trazo fino, un solo acento). Se reemplazan por
+// capturas reales de cada herramienta en cuanto Pedro las tenga.
+const charts = [
+  // 00 · Simulador de ganancias — línea de crecimiento
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="24" y1="18" x2="24" y2="136" stroke="var(--deep-line)" stroke-width="1"/>
+    <line x1="24" y1="136" x2="220" y2="136" stroke="var(--deep-line)" stroke-width="1"/>
+    <polyline points="24,110 60,118 96,90 132,98 168,55 204,40 220,22" stroke="var(--deep-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="220" cy="22" r="4.5" fill="var(--deep-accent)"/>
+  </svg>`,
+  // 01 · Calculadora para distribuidores — ficha de cálculo
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="20" width="200" height="120" rx="6" stroke="var(--deep-line)" stroke-width="1"/>
+    <line x1="20" y1="60" x2="220" y2="60" stroke="var(--deep-line)" stroke-width="1"/>
+    <line x1="20" y1="100" x2="220" y2="100" stroke="var(--deep-line)" stroke-width="1"/>
+    <line x1="86" y1="20" x2="86" y2="140" stroke="var(--deep-line)" stroke-width="1"/>
+    <line x1="153" y1="20" x2="153" y2="140" stroke="var(--deep-line)" stroke-width="1"/>
+    <rect x="86" y="60" width="67" height="40" fill="var(--deep-accent)" fill-opacity="0.18" stroke="var(--deep-accent)" stroke-width="1.5"/>
+    <line x1="102" y1="76" x2="136" y2="76" stroke="var(--deep-accent)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="102" y1="86" x2="124" y2="86" stroke="var(--deep-accent)" stroke-width="2.5" stroke-linecap="round"/>
+  </svg>`,
+  // 02 · Producción de contenido — forma de onda
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="34,58 34,102 58,80" fill="var(--deep-accent)"/>
+    <g stroke="var(--deep-accent)" stroke-width="4" stroke-linecap="round">
+      <line x1="86" y1="70" x2="86" y2="90"/>
+      <line x1="98" y1="55" x2="98" y2="105"/>
+      <line x1="110" y1="40" x2="110" y2="120"/>
+      <line x1="122" y1="60" x2="122" y2="100"/>
+      <line x1="134" y1="45" x2="134" y2="115"/>
+      <line x1="146" y1="65" x2="146" y2="95"/>
+      <line x1="158" y1="35" x2="158" y2="125"/>
+      <line x1="170" y1="58" x2="170" y2="102"/>
+      <line x1="182" y1="72" x2="182" y2="88"/>
+      <line x1="194" y1="50" x2="194" y2="110"/>
+      <line x1="206" y1="66" x2="206" y2="94"/>
+    </g>
+  </svg>`,
+  // 03 · Plataforma de capacitación — anillos de avance
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="120" cy="80" r="58" stroke="var(--deep-line)" stroke-width="8"/>
+    <circle cx="120" cy="80" r="58" stroke="var(--deep-accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="95" transform="rotate(-90 120 80)"/>
+    <circle cx="120" cy="80" r="38" stroke="var(--deep-line)" stroke-width="8"/>
+    <circle cx="120" cy="80" r="38" stroke="var(--deep-accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="150" opacity="0.55" transform="rotate(-90 120 80)"/>
+  </svg>`,
+  // 04 · Registro de eventos por código QR — ruta escaneada
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="var(--deep-line)">
+      <circle cx="40" cy="30" r="3"/><circle cx="80" cy="30" r="3"/><circle cx="120" cy="30" r="3"/><circle cx="160" cy="30" r="3"/><circle cx="200" cy="30" r="3"/>
+      <circle cx="40" cy="70" r="3"/><circle cx="80" cy="70" r="3"/><circle cx="120" cy="70" r="3"/><circle cx="160" cy="70" r="3"/><circle cx="200" cy="70" r="3"/>
+      <circle cx="40" cy="110" r="3"/><circle cx="80" cy="110" r="3"/><circle cx="120" cy="110" r="3"/><circle cx="160" cy="110" r="3"/><circle cx="200" cy="110" r="3"/>
+      <circle cx="40" cy="140" r="3"/><circle cx="80" cy="140" r="3"/><circle cx="120" cy="140" r="3"/><circle cx="160" cy="140" r="3"/><circle cx="200" cy="140" r="3"/>
+    </g>
+    <polyline points="40,30 80,70 120,70 160,110 200,110" stroke="var(--deep-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="40" cy="30" r="5.5" fill="var(--deep-accent)"/>
+    <circle cx="200" cy="110" r="5.5" fill="var(--deep-accent)"/>
+  </svg>`,
+  // 05 · Presentación interactiva en la web — ventanas apiladas
+  `<svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="16" y="34" width="150" height="96" rx="8" stroke="var(--deep-line)" stroke-width="1.5"/>
+    <rect x="46" y="18" width="178" height="112" rx="8" fill="var(--deep-bg)" stroke="var(--deep-accent)" stroke-width="2"/>
+    <line x1="46" y1="42" x2="224" y2="42" stroke="var(--deep-accent)" stroke-width="1.5"/>
+    <circle cx="58" cy="30" r="3" fill="var(--deep-accent)"/>
+    <circle cx="70" cy="30" r="3" fill="var(--deep-line)"/>
+    <circle cx="82" cy="30" r="3" fill="var(--deep-line)"/>
+    <line x1="62" y1="60" x2="150" y2="60" stroke="var(--deep-line)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="62" y1="76" x2="200" y2="76" stroke="var(--deep-line)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="62" y1="92" x2="170" y2="92" stroke="var(--deep-line)" stroke-width="2" stroke-linecap="round"/>
+  </svg>`,
+];
+
+// Fondo del hero: una carta náutica esquemática (círculos de rumbo +
+// las cuatro cardinales) — la misma idea del logo, a mucho menor
+// volumen, quieta salvo el parallax que ya tenía el hero. Sin esto el
+// hero quedaba plano; con un canvas animado de fondo (lo que se quitó
+// en el pase anterior) quedaba genérico. Este es el punto medio: una
+// sola ilustración fija, con textura, ligada al concepto de marca.
+const compassChart = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+  <circle cx="200" cy="200" r="180" stroke-width="1"/>
+  <circle cx="200" cy="200" r="120" stroke-width="1"/>
+  <circle cx="200" cy="200" r="60" stroke-width="1"/>
+  <line x1="200" y1="8" x2="200" y2="392" stroke-width="1"/>
+  <line x1="8" y1="200" x2="392" y2="200" stroke-width="1"/>
+  <line x1="58" y1="58" x2="342" y2="342" stroke-width="1"/>
+  <line x1="342" y1="58" x2="58" y2="342" stroke-width="1"/>
+  <line x1="200" y1="8" x2="185" y2="44" stroke-width="1.5"/>
+  <line x1="200" y1="8" x2="215" y2="44" stroke-width="1.5"/>
+</svg>`;
 ---
 
 <Base
@@ -84,6 +177,7 @@ const portafolio = [
   description="Nortecreativo crea soluciones para pequeños negocios combinando creatividad, tecnología e IA — de una marca a una herramienta digital hecha para resolver un problema real."
 >
   <section class="hero-section">
+    <div class="hero-bg" aria-hidden="true" set:html={compassChart} />
     <div class="hero wrap" data-parallax>
       <div class="hero-title-block">
         <span class="eyebrow mono reveal d1">Nortecreativo</span>
@@ -160,20 +254,103 @@ const portafolio = [
     <div class="wrap">
       <span class="eyebrow mono reveal">Portafolio</span>
       <h2 class="reveal">Seis proyectos. Un problema distinto cada uno.</h2>
-      <div class="grid grid-3 portfolio-grid reveal-stagger">
-        {
-          portafolio.map((p, i) => (
-            <div class={`card portfolio-card ${i === 0 || i === 5 ? 'span-2' : ''}`}>
-              <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
-              <span class="mono tag accent">{p.tag}</span>
-              <h3>{p.titulo}</h3>
-              <p>{p.desc}</p>
+      <div class="portfolio-layout">
+        <div class="portfolio-screen" aria-hidden="true">
+          <div class="screen-frame">
+            <div class="screen-head mono">
+              <span class="screen-dot"></span>
+              <span>panel — proyecto activo</span>
             </div>
-          ))
-        }
+            <div class="screen-body">
+              {
+                charts.map((chart, i) => (
+                  <div class={`screen-chart ${i === 0 ? 'is-active' : ''}`} set:html={chart} />
+                ))
+              }
+            </div>
+            <div class="screen-caption mono">
+              <span class="screen-caption-index">01</span>
+              <span class="screen-caption-title">{portafolio[0].titulo}</span>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-list reveal-stagger">
+          {
+            portafolio.map((p, i) => (
+              <div class="portfolio-row">
+                <span class="row-index mono">{String(i + 1).padStart(2, '0')}</span>
+                <span class="mono tag accent">{p.tag}</span>
+                <h3>{p.titulo}</h3>
+                <p>{p.desc}</p>
+              </div>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    // El panel de la derecha muestra un gráfico distinto según qué
+    // proyecto de la lista estás leyendo — como el panel de casos de
+    // Porto Rocha, que cambia la imagen grande sin mover el layout.
+    // En cada scroll (con rAF, sin recalcular más de una vez por
+    // frame) se mide qué fila de la lista está más cerca del centro
+    // de la pantalla y esa es la que se activa. El cambio en sí es
+    // solo opacidad vía CSS, así que no cuesta nada en un teléfono
+    // modesto y no rompe si el visitante pidió reducir movimiento.
+    (function () {
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.portfolio-row'));
+      var charts = Array.prototype.slice.call(document.querySelectorAll('.screen-chart'));
+      var captionIndex = document.querySelector('.screen-caption-index');
+      var captionTitle = document.querySelector('.screen-caption-title');
+      if (!rows.length || !charts.length) return;
+
+      var current = 0;
+
+      function activate(i) {
+        if (i === current) return;
+        current = i;
+        charts.forEach(function (c, idx) {
+          c.classList.toggle('is-active', idx === i);
+        });
+        var row = rows[i];
+        if (!row || !captionIndex || !captionTitle) return;
+        var idxEl = row.querySelector('.row-index');
+        var titleEl = row.querySelector('h3');
+        if (idxEl) captionIndex.textContent = idxEl.textContent || '';
+        if (titleEl) captionTitle.textContent = titleEl.textContent || '';
+      }
+
+      function closestToCenter() {
+        var center = window.innerHeight / 2;
+        var bestIdx = 0;
+        var bestDist = Infinity;
+        rows.forEach(function (row, idx) {
+          var rect = row.getBoundingClientRect();
+          var dist = Math.abs(rect.top + rect.height / 2 - center);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestIdx = idx;
+          }
+        });
+        activate(bestIdx);
+      }
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          closestToCenter();
+          ticking = false;
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      closestToCenter();
+    })();
+  </script>
 
   <section id="contacto" class="section section-cta">
     <div class="wrap contacto">
@@ -202,6 +379,23 @@ const portafolio = [
     .hero-section {
       position: relative;
       overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      z-index: 0;
+      top: -12%;
+      right: -10%;
+      width: 58%;
+      max-width: 760px;
+      aspect-ratio: 1 / 1;
+      color: var(--ink);
+      opacity: 0.08;
+      pointer-events: none;
+      transform: translateY(calc(var(--p, 0) * -20px));
+    }
+    .hero-bg :global(svg) {
+      width: 100%;
+      height: 100%;
     }
     .hero {
       position: relative;
@@ -415,7 +609,13 @@ const portafolio = [
     .section-deep {
       position: relative;
       overflow: hidden;
-      background: var(--deep-bg);
+      background-color: var(--deep-bg);
+      background-image: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--deep-line) 70%, transparent) 1px,
+        transparent 1px
+      );
+      background-size: 28px 28px;
       color: var(--deep-text);
     }
     .section-deep .wrap {
@@ -516,89 +716,111 @@ const portafolio = [
       }
     }
 
-    .grid {
+    /* Portafolio: en vez de seis tarjetas iguales, una lista editorial
+       (misma lógica que Servicios) más un panel fijo a la derecha —
+       la referencia es Porto Rocha: la imagen grande no se mueve del
+       sitio, solo cambia de contenido según qué caso estás leyendo.
+       Aquí el "contenido" es un gráfico técnico por proyecto en vez de
+       una foto (todavía no hay fotografía real del trabajo), mostrado
+       dentro de un panel con look de instrumento — así el contraste
+       oscuro no es un bloque puesto porque sí, es una pantalla que
+       responde a lo que estás leyendo. */
+    .portfolio-layout {
       display: grid;
-      gap: 22px;
-      margin-bottom: 20px;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+      gap: 48px;
+      align-items: start;
     }
-    .grid-3 {
-      grid-template-columns: repeat(3, 1fr);
+    .portfolio-list {
+      order: 1;
+      border-top: 1px solid var(--line);
     }
-    .portfolio-grid {
-      grid-auto-flow: dense;
-    }
-    .portfolio-card.span-2 {
-      grid-column: span 2;
-    }
-    .portfolio-card.span-2 h3 {
-      font-size: 26px;
-    }
-    .portfolio-card.span-2 p {
-      font-size: 16px;
-      max-width: 62ch;
-    }
-
-    /* Tarjetas: borde spotlight que sigue al cursor (variables --mx/--my
-       actualizadas por JS en Base.astro) en vez de un hover genérico. */
-    .card {
+    .portfolio-row {
       position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      padding: 32px 28px 28px;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-      transition: transform 260ms var(--ease-out), border-color 260ms var(--ease-out),
-        box-shadow 260ms var(--ease-out);
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
     }
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      padding: 1px;
-      background: radial-gradient(
-        260px circle at var(--mx, 50%) var(--my, 50%),
-        var(--accent),
-        transparent 70%
-      );
-      opacity: 0;
-      transition: opacity 320ms var(--ease-out);
-      pointer-events: none;
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+    .row-index {
+      color: var(--muted);
+      font-size: 13px;
     }
-    @media (hover: hover) and (pointer: fine) {
-      .card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.4);
-      }
-      .card:hover::before {
-        opacity: 1;
-      }
-    }
-    .card-index {
-      position: absolute;
-      top: 6px;
-      right: 20px;
-      z-index: -1;
-      font-family: var(--font-display);
-      font-size: 72px;
-      font-weight: 800;
-      color: var(--ink);
-      opacity: 0.06;
-      line-height: 1;
-    }
-    .card h3 {
+    .portfolio-row h3 {
       font-size: 19px;
-      margin: 0 0 10px;
+      margin: 10px 0 8px;
     }
-    .card p {
+    .portfolio-row p {
       color: var(--muted);
       font-size: 15px;
       margin: 0;
+      max-width: 52ch;
+    }
+
+    .portfolio-screen {
+      order: 2;
+      position: sticky;
+      top: 110px;
+    }
+    .screen-frame {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--deep-card);
+      border: 1px solid var(--deep-line);
+      box-shadow: 0 30px 60px -32px rgba(0, 0, 0, 0.5);
+    }
+    .screen-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--deep-line);
+      font-size: 12px;
+      color: var(--deep-muted);
+      letter-spacing: 0.04em;
+    }
+    .screen-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--deep-accent);
+      flex: none;
+    }
+    .screen-body {
+      position: relative;
+      aspect-ratio: 3 / 2;
+      background-image: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--deep-line) 60%, transparent) 1px,
+        transparent 1px
+      );
+      background-size: 20px 20px;
+    }
+    .screen-chart {
+      position: absolute;
+      inset: 0;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 200ms var(--ease-out);
+    }
+    .screen-chart.is-active {
+      opacity: 1;
+    }
+    .screen-chart :global(svg) {
+      width: 100%;
+      height: 100%;
+    }
+    .screen-caption {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      padding: 14px 16px;
+      border-top: 1px solid var(--deep-line);
+      font-size: 12px;
+    }
+    .screen-caption-index {
+      color: var(--deep-accent);
+    }
+    .screen-caption-title {
+      color: var(--deep-muted);
     }
 
     .section-cta {
@@ -615,6 +837,10 @@ const portafolio = [
       .hero {
         grid-template-columns: 1fr;
       }
+      .hero-bg {
+        width: 78%;
+        opacity: 0.06;
+      }
       .hero-side {
         padding-top: 32px;
       }
@@ -627,11 +853,12 @@ const portafolio = [
     }
 
     @media (max-width: 780px) {
-      .grid-3 {
-        grid-template-columns: 1fr;
+      .portfolio-layout {
+        display: block;
       }
-      .portfolio-card.span-2 {
-        grid-column: span 1;
+      .portfolio-screen {
+        position: static;
+        margin-bottom: 32px;
       }
       .niveles-row {
         grid-template-columns: 1fr;
