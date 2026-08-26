@@ -122,6 +122,49 @@ body {
   position: relative;
 }
 
+/* Nube líquida que sigue el cursor por todo el sitio — el mismo
+   recurso "un elemento que responde de verdad" que ya tiene la aguja
+   del logo, aquí como un rastro ambiental en vez de un ícono. Fixed,
+   no depende del scroll; el movimiento (con inercia) lo pone el
+   script en Base.astro, aquí solo se define forma y mezcla de color.
+   Modo "screen" para que nunca tape el texto ni los fondos oscuros
+   (niveles, panel del portafolio). pointer-events:none en todo el
+   contenedor para que nunca estorbe un click. */
+.site-cloud {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cloud-blob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+  filter: blur(50px);
+  opacity: 0;
+  mix-blend-mode: screen;
+  transition: opacity 600ms var(--ease-out);
+  will-change: transform;
+}
+.cloud-blob-b {
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  filter: blur(40px);
+}
+.site-cloud.is-active .cloud-blob-a {
+  opacity: 0.5;
+}
+.site-cloud.is-active .cloud-blob-b {
+  opacity: 0.32;
+}
+
 /* Grano fijo sobre todo el sitio — rompe la planicie digital sin robarle
    nada a la lectura. pointer-events:none para que nunca estorbe un click. */
 body::before {

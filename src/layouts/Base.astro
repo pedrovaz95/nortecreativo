@@ -26,6 +26,10 @@ const { title, description } = Astro.props;
     />
   </head>
   <body>
+    <div class="site-cloud" aria-hidden="true">
+      <span class="cloud-blob cloud-blob-a"></span>
+      <span class="cloud-blob cloud-blob-b"></span>
+    </div>
     <header class="site-header">
       <div class="wrap header-inner">
         <a href="/" aria-label="Ir al inicio de Nortecreativo">
@@ -114,6 +118,71 @@ const { title, description } = Astro.props;
         update();
       })();
 
+      // Nube líquida naranja que sigue el cursor por toda la página,
+      // con inercia (no se pega a la posición exacta del mouse, va
+      // detrás con un poco de peso) — el mismo principio de "un
+      // elemento que responde de verdad" que ya tiene la aguja del
+      // logo, aquí como un rastro ambiental en vez de un ícono. Fixed
+      // sobre toda la ventana (no depende del scroll), se mezcla en
+      // modo "screen" así que nunca tapa el texto ni los fondos
+      // oscuros. Se desactiva por completo con "reducir movimiento" o
+      // en pantallas táctiles (ahí no hay cursor que perseguir).
+      (function () {
+        var cloud = document.querySelector('.site-cloud');
+        if (!cloud) return;
+
+        var fineHover =
+          window.matchMedia &&
+          window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        var reduce =
+          window.matchMedia &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!fineHover || reduce) return;
+
+        var blobs = Array.prototype.slice.call(cloud.querySelectorAll('.cloud-blob'));
+        var lag = [0.1, 0.06]; // la segunda mancha va más rezagada: da sensación de peso
+        var pos = blobs.map(function () {
+          return { x: 0, y: 0 };
+        });
+        var target = { x: 0, y: 0 };
+        var running = false;
+        var started = false;
+
+        function loop() {
+          blobs.forEach(function (blob, i) {
+            pos[i].x += (target.x - pos[i].x) * lag[i];
+            pos[i].y += (target.y - pos[i].y) * lag[i];
+            blob.style.transform =
+              'translate(' + pos[i].x.toFixed(1) + 'px,' + pos[i].y.toFixed(1) + 'px)';
+          });
+          if (running) requestAnimationFrame(loop);
+        }
+
+        window.addEventListener(
+          'pointermove',
+          function (e) {
+            target.x = e.clientX;
+            target.y = e.clientY;
+            if (!started) {
+              started = true;
+              pos.forEach(function (p) {
+                p.x = e.clientX;
+                p.y = e.clientY;
+              });
+              cloud.classList.add('is-active');
+            }
+            if (!running) {
+              running = true;
+              requestAnimationFrame(loop);
+            }
+          },
+          { passive: true }
+        );
+
+        document.addEventListener('mouseleave', function () {
+          cloud.classList.remove('is-active');
+        });
+      })();
     </script>
 
     <style>
