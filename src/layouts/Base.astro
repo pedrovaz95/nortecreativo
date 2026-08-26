@@ -82,6 +82,55 @@ const { title, description } = Astro.props;
           io.observe(el);
         });
       })();
+
+      // Parallax sutil del hero: al bajar, el bloque de texto se desplaza
+      // y se apaga un poco. Es la parte "cinética" del título editorial.
+      // Se salta por completo si el visitante pidió reducir movimiento.
+      (function () {
+        var reduce =
+          window.matchMedia &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var hero = document.querySelector('[data-parallax]');
+        if (!hero || reduce) return;
+
+        var ticking = false;
+        function update() {
+          var rect = hero.getBoundingClientRect();
+          var heroHeight = hero.offsetHeight || 600;
+          var progress = Math.min(Math.max(-rect.top / heroHeight, 0), 1);
+          hero.style.setProperty('--p', progress.toFixed(3));
+          ticking = false;
+        }
+        window.addEventListener(
+          'scroll',
+          function () {
+            if (!ticking) {
+              window.requestAnimationFrame(update);
+              ticking = true;
+            }
+          },
+          { passive: true }
+        );
+        update();
+      })();
+
+      // Borde "spotlight": sigue al cursor sobre cada tarjeta con variables
+      // CSS, en vez de un hover genérico de sombra pareja.
+      (function () {
+        document.querySelectorAll('.card').forEach(function (card) {
+          card.addEventListener('pointermove', function (e) {
+            var rect = card.getBoundingClientRect();
+            card.style.setProperty(
+              '--mx',
+              (((e.clientX - rect.left) / rect.width) * 100).toFixed(1) + '%'
+            );
+            card.style.setProperty(
+              '--my',
+              (((e.clientY - rect.top) / rect.height) * 100).toFixed(1) + '%'
+            );
+          });
+        });
+      })();
     </script>
 
     <style>

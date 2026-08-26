@@ -94,6 +94,8 @@ html.js:not(.reduced-motion) .reveal-stagger.is-visible > * {
 .reveal.is-visible.d3 { transition-delay: 140ms; }
 .reveal.is-visible.d4 { transition-delay: 210ms; }
 .reveal.is-visible.d5 { transition-delay: 280ms; }
+.reveal.is-visible.d6 { transition-delay: 350ms; }
+.reveal.is-visible.d7 { transition-delay: 420ms; }
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -117,6 +119,20 @@ body {
   font-weight: 500;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Grano fijo sobre todo el sitio — rompe la planicie digital sin robarle
+   nada a la lectura. pointer-events:none para que nunca estorbe un click. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 h1, h2, h3, h4 {
@@ -133,6 +149,10 @@ a {
 
 .mono {
   font-family: var(--font-mono);
+}
+
+.accent {
+  color: var(--accent);
 }
 
 .wrap {

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import CompassField from '../components/CompassField.astro';
 
 const lineas = [
   {
@@ -80,25 +81,32 @@ const portafolio = [
   description="Nortecreativo crea soluciones para pequeños negocios combinando creatividad, tecnología e IA — de una marca a una herramienta digital hecha para resolver un problema real."
 >
   <section class="hero-section">
-    <div class="hero-glow hero-glow-accent" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-ink" aria-hidden="true"></div>
-    <div class="hero wrap">
-      <span class="eyebrow mono reveal d1">Nortecreativo</span>
-      <h1 class="reveal d2">Resolvemos problemas de negocio con diseño y tecnología.</h1>
-      <p class="lead reveal d3">
-        Marca, contenido, herramientas digitales y automatización con IA. No
-        entregamos solo un archivo — resolvemos el problema detrás.
-      </p>
-      <div class="cta-row reveal d4">
-        <a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a>
-        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+    <CompassField />
+    <div class="hero wrap" data-parallax>
+      <div class="hero-title-block">
+        <span class="eyebrow mono reveal d1">Nortecreativo</span>
+        <h1 class="hero-title">
+          <span class="line line-1 reveal d2">Resolvemos</span>
+          <span class="line line-2 reveal d3">problemas de negocio</span>
+          <span class="line line-3 accent reveal d4">con diseño y tecnología.</span>
+        </h1>
       </div>
-      <div class="contraste reveal d5">
-        <p class="antes"><span class="mono tag">antes</span> "Te hago una página web."</p>
-        <p class="ahora">
-          <span class="mono tag accent">ahora</span> Una solución para vender, comunicar
-          u operar mejor tu negocio.
+      <div class="hero-side">
+        <p class="lead reveal d5">
+          Marca, contenido, herramientas digitales y automatización con IA. No
+          entregamos solo un archivo — resolvemos el problema detrás.
         </p>
+        <div class="cta-row reveal d6">
+          <a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a>
+          <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+        </div>
+        <div class="contraste reveal d7">
+          <p class="antes"><span class="mono tag">antes</span> "Te hago una página web."</p>
+          <p class="ahora">
+            <span class="mono tag accent">ahora</span> Una solución para vender, comunicar
+            u operar mejor tu negocio.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -107,13 +115,13 @@ const portafolio = [
     <div class="wrap">
       <span class="eyebrow mono reveal">Servicios</span>
       <h2 class="reveal">Cuatro líneas. Casi siempre se combinan.</h2>
-      <div class="grid grid-2 reveal-stagger">
+      <div class="service-list reveal-stagger">
         {
           lineas.map((l, i) => (
-            <div class="card">
-              <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{l.titulo}</h3>
-              <p>{l.desc}</p>
+            <div class="service-row">
+              <span class="service-index mono">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="service-title">{l.titulo}</h3>
+              <p class="service-desc">{l.desc}</p>
             </div>
           ))
         }
@@ -122,13 +130,14 @@ const portafolio = [
   </section>
 
   <section class="section section-deep">
+    <CompassField variant="deep" />
     <div class="wrap">
       <span class="eyebrow mono reveal">Niveles</span>
       <h2 class="reveal">Del tamaño de tu problema.</h2>
-      <div class="grid grid-3 reveal-stagger">
+      <div class="niveles-row reveal-stagger">
         {
           niveles.map((n, i) => (
-            <div class="card card-nivel">
+            <div class={`nivel-card nivel-${i + 1}`}>
               <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
               <h3>{n.nombre}</h3>
               <p class="precio mono">{n.precio}</p>
@@ -150,10 +159,10 @@ const portafolio = [
     <div class="wrap">
       <span class="eyebrow mono reveal">Portafolio</span>
       <h2 class="reveal">Seis proyectos. Un problema distinto cada uno.</h2>
-      <div class="grid grid-3 reveal-stagger">
+      <div class="grid grid-3 portfolio-grid reveal-stagger">
         {
           portafolio.map((p, i) => (
-            <div class="card">
+            <div class={`card portfolio-card ${i === 0 || i === 5 ? 'span-2' : ''}`}>
               <span class="card-index mono">{String(i + 1).padStart(2, '0')}</span>
               <span class="mono tag accent">{p.tag}</span>
               <h3>{p.titulo}</h3>
@@ -166,7 +175,7 @@ const portafolio = [
   </section>
 
   <section id="contacto" class="section section-cta">
-    <div class="cta-glow" aria-hidden="true"></div>
+    <CompassField />
     <div class="wrap contacto">
       <span class="eyebrow mono reveal">Contacto</span>
       <h2 class="reveal">Hablemos de tu proyecto.</h2>
@@ -194,33 +203,17 @@ const portafolio = [
       position: relative;
       overflow: hidden;
     }
-    .hero-glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      pointer-events: none;
-    }
-    .hero-glow-accent {
-      width: 560px;
-      height: 560px;
-      top: -220px;
-      right: -160px;
-      background: var(--accent);
-      opacity: 0.28;
-    }
-    .hero-glow-ink {
-      width: 460px;
-      height: 460px;
-      bottom: -260px;
-      left: -180px;
-      background: var(--ink);
-      opacity: 0.06;
-    }
     .hero {
       position: relative;
-      padding-top: clamp(72px, 14vh, 160px);
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+      column-gap: 56px;
+      align-items: start;
+      padding-top: clamp(64px, 12vh, 140px);
       padding-bottom: clamp(56px, 8vh, 96px);
-      max-width: 720px;
+      transform: translateY(calc(var(--p, 0) * -46px));
+      opacity: calc(1 - var(--p, 0) * 0.7);
     }
     .eyebrow {
       display: block;
@@ -230,16 +223,41 @@ const portafolio = [
       text-transform: uppercase;
       margin-bottom: 22px;
     }
-    h1 {
-      font-size: clamp(36px, 6.6vw, 76px);
-      letter-spacing: -0.025em;
-      line-height: 1.03;
-      margin-bottom: 22px;
+    .hero-title {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .hero-title .line {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+    .hero-title .line-1 {
+      font-size: clamp(44px, 8.6vw, 108px);
+      font-weight: 900;
+    }
+    .hero-title .line-2 {
+      font-size: clamp(32px, 6vw, 72px);
+      margin-left: clamp(0px, 6vw, 64px);
+      color: var(--muted);
+    }
+    .hero-title .line-3 {
+      font-size: clamp(26px, 4.6vw, 52px);
+      margin-left: clamp(0px, 11vw, 116px);
+      font-style: italic;
+      font-weight: 700;
+    }
+    .hero-side {
+      padding-top: clamp(8px, 6vh, 64px);
     }
     .lead {
       color: var(--muted);
       font-size: 19px;
-      max-width: 52ch;
+      max-width: 42ch;
       margin: 0 0 36px;
     }
     .cta-row {
@@ -328,13 +346,73 @@ const portafolio = [
       max-width: 32ch;
     }
 
+    /* Lista editorial de servicios — reemplaza el grid de tarjetas
+       iguales por algo que se lee como un índice de revista. */
+    .service-list {
+      border-top: 1px solid var(--line);
+    }
+    .service-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px minmax(200px, 1fr) minmax(220px, 1.3fr);
+      align-items: baseline;
+      gap: 8px 32px;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .service-index {
+      color: var(--muted);
+      font-size: 14px;
+      transition: color 240ms var(--ease-out);
+    }
+    .service-title {
+      font-size: clamp(20px, 2.4vw, 26px);
+      margin: 0;
+      transition: color 240ms var(--ease-out), transform 240ms var(--ease-out);
+    }
+    .service-desc {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0;
+      max-width: 48ch;
+    }
+    .service-row::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      height: 1px;
+      width: 0;
+      background: var(--accent);
+      transition: width 420ms var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .service-row:hover::after {
+        width: 100%;
+      }
+      .service-row:hover .service-index,
+      .service-row:hover .service-title {
+        color: var(--accent);
+      }
+      .service-row:hover .service-title {
+        transform: translateX(4px);
+      }
+    }
+
     /* Franja oscura fija — quiebra el ritmo visual entre secciones,
        como los bloques de contraste que usan sitios de referencia
        (Apple, agencias de diseño): no depende del modo claro/oscuro
        del sistema, siempre se ve como una pausa intencional. */
     .section-deep {
+      position: relative;
+      overflow: hidden;
       background: var(--deep-bg);
       color: var(--deep-text);
+    }
+    .section-deep .wrap {
+      position: relative;
+      z-index: 1;
     }
     .section-deep .eyebrow {
       color: var(--deep-accent);
@@ -342,27 +420,89 @@ const portafolio = [
     .section-deep h2 {
       color: var(--deep-text);
     }
-    .section-deep .card {
+
+    /* Escalera de niveles: el tamaño y la altura de cada tarjeta crecen
+       de Inicio a Lab — la composición representa "del tamaño de tu
+       problema" en vez de tres cajas idénticas. */
+    .niveles-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+    .nivel-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       background: var(--deep-card);
-      border-color: var(--deep-line);
-      box-shadow: none;
+      border: 1px solid var(--deep-line);
+      border-radius: var(--radius);
+      padding: 26px 24px 24px;
+      transition: border-color 260ms var(--ease-out), box-shadow 260ms var(--ease-out);
     }
-    .section-deep .card-index {
-      color: var(--deep-text);
+    .nivel-1 {
+      transform: translateY(48px);
+      opacity: 0.92;
     }
-    .section-deep .card-nivel h3 {
+    .nivel-2 {
+      transform: translateY(16px);
+    }
+    .nivel-3 {
+      padding-top: 40px;
+      padding-bottom: 34px;
+      border-color: var(--deep-accent);
+      box-shadow: 0 30px 60px -32px rgba(0, 0, 0, 0.65);
+    }
+    .nivel-1 h3 {
+      font-size: 18px;
+    }
+    .nivel-2 h3 {
+      font-size: 22px;
+    }
+    .nivel-3 h3 {
+      font-size: 28px;
+    }
+    .nivel-card h3 {
       color: var(--deep-accent);
+      margin-bottom: 2px;
     }
-    .section-deep .precio,
-    .section-deep .nivel-desc {
+    .card-index {
+      position: absolute;
+      top: 6px;
+      right: 20px;
+      z-index: -1;
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 800;
       color: var(--deep-text);
+      opacity: 0.06;
+      line-height: 1;
     }
-    .section-deep .nivel-ejemplos,
-    .section-deep .nota {
+    .precio {
+      font-size: 22px;
+      color: var(--deep-text);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .nivel-desc {
+      color: var(--deep-text);
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .nivel-ejemplos {
       color: var(--deep-muted);
+      font-size: 14px;
+    }
+    .nota {
+      color: var(--deep-muted);
+      font-size: 14px;
+      font-style: italic;
+      margin-top: 8px;
     }
     @media (hover: hover) and (pointer: fine) {
-      .section-deep .card:hover {
+      .nivel-card:hover {
         border-color: var(--deep-accent);
         box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.6);
       }
@@ -373,12 +513,25 @@ const portafolio = [
       gap: 22px;
       margin-bottom: 20px;
     }
-    .grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
     .grid-3 {
       grid-template-columns: repeat(3, 1fr);
     }
+    .portfolio-grid {
+      grid-auto-flow: dense;
+    }
+    .portfolio-card.span-2 {
+      grid-column: span 2;
+    }
+    .portfolio-card.span-2 h3 {
+      font-size: 26px;
+    }
+    .portfolio-card.span-2 p {
+      font-size: 16px;
+      max-width: 62ch;
+    }
+
+    /* Tarjetas: borde spotlight que sigue al cursor (variables --mx/--my
+       actualizadas por JS en Base.astro) en vez de un hover genérico. */
     .card {
       position: relative;
       overflow: hidden;
@@ -391,11 +544,31 @@ const portafolio = [
       transition: transform 260ms var(--ease-out), border-color 260ms var(--ease-out),
         box-shadow 260ms var(--ease-out);
     }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        260px circle at var(--mx, 50%) var(--my, 50%),
+        var(--accent),
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity 320ms var(--ease-out);
+      pointer-events: none;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
     @media (hover: hover) and (pointer: fine) {
       .card:hover {
         transform: translateY(-6px);
-        border-color: var(--accent);
         box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.4);
+      }
+      .card:hover::before {
+        opacity: 1;
       }
     }
     .card-index {
@@ -419,67 +592,61 @@ const portafolio = [
       font-size: 15px;
       margin: 0;
     }
-    .card-nivel {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .card-nivel h3 {
-      color: var(--accent);
-      margin-bottom: 2px;
-    }
-    .precio {
-      font-size: 22px;
-      color: var(--ink);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-    .nivel-desc {
-      color: var(--ink);
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .nivel-ejemplos {
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .nota {
-      color: var(--muted);
-      font-size: 14px;
-      font-style: italic;
-      margin-top: 8px;
-    }
 
     .section-cta {
       position: relative;
       overflow: hidden;
     }
-    .cta-glow {
-      position: absolute;
-      width: 640px;
-      height: 640px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--accent);
-      opacity: 0.08;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-    }
-    .contacto {
+    .section-cta .contacto {
       position: relative;
+      z-index: 1;
       max-width: 560px;
     }
 
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .hero-side {
+        padding-top: 32px;
+      }
+      .hero-title .line-2 {
+        margin-left: clamp(0px, 8vw, 32px);
+      }
+      .hero-title .line-3 {
+        margin-left: clamp(0px, 14vw, 56px);
+      }
+    }
+
     @media (max-width: 780px) {
-      .grid-2,
       .grid-3 {
         grid-template-columns: 1fr;
       }
-      .hero-glow-accent,
-      .hero-glow-ink {
-        opacity: 0.16;
+      .portfolio-card.span-2 {
+        grid-column: span 1;
+      }
+      .niveles-row {
+        grid-template-columns: 1fr;
+      }
+      .nivel-1,
+      .nivel-2,
+      .nivel-3 {
+        transform: none;
+        padding: 26px 24px 24px;
+      }
+      .service-row {
+        grid-template-columns: 40px 1fr;
+        grid-template-areas: 'idx title' 'desc desc';
+        row-gap: 10px;
+      }
+      .service-index {
+        grid-area: idx;
+      }
+      .service-title {
+        grid-area: title;
+      }
+      .service-desc {
+        grid-area: desc;
       }
     }
   </style>
