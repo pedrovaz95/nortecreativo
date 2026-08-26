@@ -178,6 +178,10 @@ const compassChart = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w
 >
   <section class="hero-section">
     <div class="hero-bg" aria-hidden="true" set:html={compassChart} />
+    <div class="hero-cloud" aria-hidden="true">
+      <span class="cloud-blob cloud-blob-a"></span>
+      <span class="cloud-blob cloud-blob-b"></span>
+    </div>
     <div class="hero wrap" data-parallax>
       <div class="hero-title-block">
         <span class="eyebrow mono reveal d1">Nortecreativo</span>
@@ -206,6 +210,106 @@ const compassChart = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w
       </div>
     </div>
   </section>
+
+  <script>
+    // Nube líquida naranja que sigue el cursor, pero solo dentro del
+    // cuadrante del fondo del hero (el mismo espacio donde antes solo
+    // había una ilustración fija) — el resto del sitio no cambia. Va
+    // detrás del cursor con inercia (no lo sigue de golpe, como si
+    // pesara) en vez de pegarse a la posición exacta del mouse. Se
+    // desactiva por completo con "reducir movimiento" o en pantallas
+    // táctiles (ahí no hay cursor que perseguir).
+    (function () {
+      // El listener va en toda la sección (no en el cuadrante) porque
+      // el grid del hero (.hero) tiene mayor z-index y captura los
+      // eventos de mouse aunque esté visualmente vacío ahí — así que
+      // en vez de pelear con el orden de capas, se escucha arriba y
+      // se decide "¿el cursor está dentro del cuadrante?" comparando
+      // coordenadas contra el rectángulo real del fondo.
+      var quadrant = document.querySelector('.hero-bg');
+      var cloud = document.querySelector('.hero-cloud');
+      var section = document.querySelector('.hero-section');
+      if (!quadrant || !cloud || !section) return;
+
+      var fineHover =
+        window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var reduce =
+        window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!fineHover || reduce) return;
+
+      var blobs = Array.prototype.slice.call(cloud.querySelectorAll('.cloud-blob'));
+      var lag = [0.1, 0.06]; // la segunda mancha va más rezagada: da sensación de peso
+      var pos = blobs.map(function () {
+        return { x: 0, y: 0 };
+      });
+      var target = { x: 0, y: 0 };
+      var running = false;
+      var inside = false;
+
+      function loop() {
+        blobs.forEach(function (blob, i) {
+          pos[i].x += (target.x - pos[i].x) * lag[i];
+          pos[i].y += (target.y - pos[i].y) * lag[i];
+          blob.style.transform = 'translate(' + pos[i].x.toFixed(1) + 'px,' + pos[i].y.toFixed(1) + 'px)';
+        });
+        if (running) requestAnimationFrame(loop);
+      }
+
+      function leave() {
+        inside = false;
+        cloud.classList.remove('is-active');
+        setTimeout(function () {
+          if (!inside) running = false;
+        }, 800);
+      }
+
+      section.addEventListener(
+        'pointermove',
+        function (e) {
+          var qRect = quadrant.getBoundingClientRect();
+          var within =
+            e.clientX >= qRect.left &&
+            e.clientX <= qRect.right &&
+            e.clientY >= qRect.top &&
+            e.clientY <= qRect.bottom;
+
+          if (!within) {
+            if (inside) leave();
+            return;
+          }
+
+          var sRect = section.getBoundingClientRect();
+          var x = e.clientX - sRect.left;
+          var y = e.clientY - sRect.top;
+
+          if (!inside) {
+            // recién entra: la nube aparece donde está el cursor, no
+            // vuela desde una esquina
+            target.x = x;
+            target.y = y;
+            pos.forEach(function (p) {
+              p.x = x;
+              p.y = y;
+            });
+            cloud.classList.add('is-active');
+            inside = true;
+            if (!running) {
+              running = true;
+              requestAnimationFrame(loop);
+            }
+          } else {
+            target.x = x;
+            target.y = y;
+          }
+        },
+        { passive: true }
+      );
+
+      section.addEventListener('pointerleave', function () {
+        if (inside) leave();
+      });
+    })();
+  </script>
 
   <section id="servicios" class="section">
     <div class="wrap">
@@ -396,6 +500,46 @@ const compassChart = `<svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w
     .hero-bg :global(svg) {
       width: 100%;
       height: 100%;
+    }
+    /* Nube líquida: dos manchas radiales muy difuminadas, en modo
+       "screen" para mezclarse con el fondo en vez de taparlo. El
+       movimiento (inercia, no posición directa) lo pone el script de
+       arriba; aquí solo se define la forma y la mezcla de color. No
+       se recorta al cuadrante del fondo a propósito — un borde duro
+       contradiría la idea de "sin líneas duras". La contiene el
+       overflow:hidden de .hero-section, nada más. */
+    .hero-cloud {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .cloud-blob {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 460px;
+      height: 460px;
+      margin: -230px 0 0 -230px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 68%);
+      filter: blur(50px);
+      opacity: 0;
+      mix-blend-mode: screen;
+      transition: opacity 600ms var(--ease-out);
+      will-change: transform;
+    }
+    .cloud-blob-b {
+      width: 300px;
+      height: 300px;
+      margin: -150px 0 0 -150px;
+      filter: blur(40px);
+    }
+    .hero-cloud.is-active .cloud-blob-a {
+      opacity: 0.5;
+    }
+    .hero-cloud.is-active .cloud-blob-b {
+      opacity: 0.32;
     }
     .hero {
       position: relative;
